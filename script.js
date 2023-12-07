@@ -26,7 +26,14 @@ function createGridSize() {
   for (let i = 0; i < gridRangeSize.value * gridRangeSize.value; i++) {
     createGridCells(gridRangeSize.value);
   }
+
   generateColor("black");
+  removeActiveClass(colorButtons);
+  console.log(removeActiveClass(colorButtons));
+}
+
+function removeActiveClass(buttons) {
+  buttons.forEach((button) => button.classList.remove("active"));
 }
 
 // Helper Function
@@ -48,12 +55,16 @@ function randomColor() {
 function chooseColor() {
   colorButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      if (button.classList.contains("rgb")) {
-        generateColor("rgb");
-      } else if (button.classList.contains("white")) {
+      removeActiveClass(colorButtons);
+      if (button.classList.contains("white")) {
+        colorButtons[0].classList.add("active");
         generateColor("white");
       } else if (button.classList.contains("black")) {
+        colorButtons[1].classList.add("active");
         generateColor("black");
+      } else if (button.classList.contains("rgb")) {
+        colorButtons[2].classList.add("active");
+        generateColor("rgb");
       }
     });
   });

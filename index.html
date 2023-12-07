@@ -8,28 +8,31 @@
   </head>
   <body>
     <h1>Etch A Sketch</h1>
-    <div class="grid"></div>
+    <div class="main">
+      <div class="settings">
+        <div class="color-buttons">
+          <button class="white">White</button>
+          <button class="black">Black</button>
+          <button class="rgb">RGB</button>
+        </div>
+        <button class="clear">Clear</button>
+        <button class="toggle-border">Toggle Border</button>
 
-    <div class="grid-sizeContainer">
-      <label for="grid-range">Grid Size</label>
-      <input
-        type="range"
-        id="grid-range"
-        min="1"
-        max="100"
-        value="16"
-        step="1"
-      />
-      <p><output class="grid-value"></output></p>
-      <button class="createGrid">Create New Grid</button>
+        <label for="grid-range"></label>
+        <input
+          type="range"
+          id="grid-range"
+          min="1"
+          max="100"
+          value="16"
+          step="1"
+        />
+
+        <p>Grid Size: <output class="grid-value"></output></p>
+        <button class="createGrid">Create New Grid</button>
+      </div>
+      <div class="grid"></div>
     </div>
-    <div class="color-buttons">
-      <button class="white">White</button>
-      <button class="black">Black</button>
-      <button class="rgb">RGB</button>
-    </div>
-    <button class="clear">Clear</button>
-    <button class="toggle-border">Toggle Border</button>
 
     <script src="script.js"></script>
   </body>
