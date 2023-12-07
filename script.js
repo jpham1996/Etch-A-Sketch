@@ -1,93 +1,97 @@
 // Grid Selectors
-const gridContainer = document.querySelector(".grid-container");
-const gridRangeSize = document.querySelector("#grid-size");
-const gridTextValue = document.querySelector("#grid-value");
+const gridContainer = document.querySelector(".grid");
+const gridRangeSize = document.querySelector("#grid-range");
+const gridTextValue = document.querySelector(".grid-value");
 const createNewGrid = document.querySelector(".createGrid");
 
 // Button Selectors
-const eraser = document.querySelector(".eraser");
-const black = document.querySelector(".black");
-const rgb = document.querySelector(".rgb");
-const clear = document.querySelector(".clear");
+const colorButtons = Array.from(
+  document.querySelector(".color-buttons").children
+);
+const clearButton = document.querySelector(".clear");
 
 gridTextValue.textContent = `${gridRangeSize.value} x ${gridRangeSize.value}`;
 
 // Default Grid Size of 16 x 16
-for (let i = 0; i < 16; i++) {
-  const row = document.createElement("div");
-  const flexBoxItem = document.createElement("div");
-  row.classList.add("row");
-  flexBoxItem.classList.add("flexbox-item");
-
-  for (let j = 0; j < 16; j++) {
-    row.appendChild(flexBoxItem.cloneNode(true));
+function createDefaultGrid(size) {
+  for (let i = 0; i < size * size; i++) {
+    createGridCells(size);
   }
-  gridContainer.appendChild(row);
 }
 
-function randomizeColor() {
+function createGridSize() {
+  gridContainer.innerHTML = "";
+  for (let i = 0; i < gridRangeSize.value * gridRangeSize.value; i++) {
+    createGridCells(gridRangeSize.value);
+  }
+}
+
+// Helper Function
+function createGridCells(number) {
+  const gridCells = document.createElement("div");
+  gridCells.classList.add("grid-cells");
+  gridContainer.style.gridTemplateColumns = `repeat(${number}, auto)`;
+  gridContainer.style.gridTemplateRows = `repeat(${number}, auto)`;
+  gridContainer.appendChild(gridCells);
+}
+
+// Helper Function
+function randomColor() {
   const red = Math.floor(Math.random() * 255);
   const green = Math.floor(Math.random() * 255);
   const blue = Math.floor(Math.random() * 255);
   const color = `rgb(${red},${green},${blue})`;
   return color;
 }
+function chooseColor() {
+  colorButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.classList.contains("rgb")) {
+        generateColor("rgb");
+      } else if (button.classList.contains("white")) {
+        generateColor("white");
+      } else if (button.classList.contains("black")) {
+        generateColor("black");
+      }
+    });
+  });
+}
 
-function createGridSize() {
-  gridContainer.innerHTML = "";
-  for (let i = 0; i < gridRangeSize.value; i++) {
-    const row = document.createElement("div");
-    const flexBoxItem = document.createElement("div");
-    row.classList.add("row");
-    flexBoxItem.classList.add("flexbox-item");
-
-    for (let j = 0; j < gridRangeSize.value; j++) {
-      row.appendChild(flexBoxItem.cloneNode(true));
+function generateColor(color) {
+  const gridCells = document.querySelectorAll(".grid > div");
+  gridCells.forEach((item) => {
+    if (color === "rgb") {
+      item.addEventListener("mouseover", function (e) {
+        e.target.style.backgroundColor = randomColor();
+      });
     }
 
-    gridContainer.appendChild(row);
+    item.addEventListener("mouseover", function (e) {
+      e.target.style.backgroundColor = color;
+    });
+  });
+}
+
+function clear() {
+  const gridCells = document.querySelectorAll(".grid > div");
+  for (let i = 0; i < gridCells.length; i++) {
+    gridCells[i].style.backgroundColor = "transparent";
   }
 }
 
-gridRangeSize.addEventListener("input", function () {
+function getGridTextValue() {
   gridTextValue.textContent = `${gridRangeSize.value} x ${gridRangeSize.value}`;
-});
+}
 
+createDefaultGrid(16);
+chooseColor();
+
+gridRangeSize.addEventListener("input", getGridTextValue);
 createNewGrid.addEventListener("click", createGridSize);
+clearButton.addEventListener("click", clear);
 
-eraser.addEventListener("click", function () {
-  gridContainer.addEventListener("mouseover", function (e) {
-    if (e.target.classList.contains("flexbox-item")) {
-      e.target.style.backgroundColor = "white";
-    }
-  });
-});
-
-black.addEventListener("click", function () {
-  gridContainer.addEventListener("mouseover", function (e) {
-    if (e.target.classList.contains("flexbox-item")) {
-      e.target.style.backgroundColor = "black";
-    }
-  });
-});
-
-rgb.addEventListener("click", function () {
-  gridContainer.addEventListener("mouseover", function (e) {
-    if (e.target.classList.contains("flexbox-item")) {
-      e.target.style.backgroundColor = randomizeColor();
-    }
-  });
-});
-
-clear.addEventListener("click", function () {
-  const flexBoxItems = document.querySelectorAll(".flexbox-item");
-  for (let i = 0; i < flexBoxItems.length; i++) {
-    flexBoxItems[i].style.backgroundColor = "transparent";
-  }
-});
-
-gridContainer.addEventListener("mouseover", function (e) {
-  if (e.target.classList.contains("flexbox-item")) {
-    e.target.style.backgroundColor = "black";
-  }
-});
+// gridContainer.addEventListener("mouseover", function (e) {
+//   if (e.target.classList.contains("grid-cells")) {
+//     e.target.style.backgroundColor = "black";
+//   }
+// });

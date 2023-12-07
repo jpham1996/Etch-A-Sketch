@@ -13,19 +13,15 @@ h1 {
   text-align: center;
 }
 
-.grid-container {
-  width: 80%;
-  max-width: 960px;
+.grid {
+  display: grid;
+  height: 500px;
+  width: 500px;
+  border: 1px black solid;
+
   margin: 0 auto;
 }
 
-.row {
-  display: flex;
-  justify-content: center;
-}
-
-.flexbox-item {
-  border: 1px solid black;
-  height: 20px;
-  width: 20px;
+.grid-cells {
+  border: 1px black solid;
 }
