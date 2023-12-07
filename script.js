@@ -8,7 +8,9 @@ const createNewGrid = document.querySelector(".createGrid");
 const colorButtons = Array.from(
   document.querySelector(".color-buttons").children
 );
+
 const clearButton = document.querySelector(".clear");
+const toggleButton = document.querySelector(".toggle-border");
 
 gridTextValue.textContent = `${gridRangeSize.value} x ${gridRangeSize.value}`;
 
@@ -24,12 +26,12 @@ function createGridSize() {
   for (let i = 0; i < gridRangeSize.value * gridRangeSize.value; i++) {
     createGridCells(gridRangeSize.value);
   }
+  generateColor("black");
 }
 
 // Helper Function
 function createGridCells(number) {
   const gridCells = document.createElement("div");
-  gridCells.classList.add("grid-cells");
   gridContainer.style.gridTemplateColumns = `repeat(${number}, auto)`;
   gridContainer.style.gridTemplateRows = `repeat(${number}, auto)`;
   gridContainer.appendChild(gridCells);
@@ -83,15 +85,19 @@ function getGridTextValue() {
   gridTextValue.textContent = `${gridRangeSize.value} x ${gridRangeSize.value}`;
 }
 
+function toggleBorder() {
+  const gridCells = document.querySelectorAll(".grid > div");
+  gridCells.forEach((item) => {
+    item.classList.toggle("grid-cells");
+  });
+}
+
 createDefaultGrid(16);
 chooseColor();
+// Initialize background color of black on the grid items/cells.
+generateColor("black");
 
 gridRangeSize.addEventListener("input", getGridTextValue);
 createNewGrid.addEventListener("click", createGridSize);
 clearButton.addEventListener("click", clear);
-
-// gridContainer.addEventListener("mouseover", function (e) {
-//   if (e.target.classList.contains("grid-cells")) {
-//     e.target.style.backgroundColor = "black";
-//   }
-// });
+toggleButton.addEventListener("click", toggleBorder);
