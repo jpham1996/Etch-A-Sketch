@@ -11,25 +11,28 @@ body {
 }
 
 h1 {
-  font-size: 50px;
+  font-size: 40px;
   text-align: center;
 }
 
 .main {
   display: flex;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .settings {
   position: absolute;
-  left: 50px;
   height: 500px;
-  width: 200px;
+  width: 135px;
   display: flex;
   flex-direction: column;
+  margin-left: 30px;
+  justify-content: center;
 }
 
 button {
-  padding: 5px;
   margin-bottom: 25px;
 }
 
@@ -52,4 +55,19 @@ button {
 
 .active {
   background-color: aqua;
+}
+
+@media (max-width: 900px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .settings {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    height: 350px;
+  }
 }

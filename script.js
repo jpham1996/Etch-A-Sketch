@@ -8,7 +8,6 @@ const createNewGrid = document.querySelector(".createGrid");
 const colorButtons = Array.from(
   document.querySelector(".color-buttons").children
 );
-
 const clearButton = document.querySelector(".clear");
 const toggleButton = document.querySelector(".toggle-border");
 
@@ -21,22 +20,22 @@ function createDefaultGrid(size) {
   }
 }
 
+// Create Grid Size based on Range Input Value
 function createGridSize() {
   gridContainer.innerHTML = "";
   for (let i = 0; i < gridRangeSize.value * gridRangeSize.value; i++) {
     createGridCells(gridRangeSize.value);
   }
-
   generateColor("black");
   removeActiveClass(colorButtons);
-  console.log(removeActiveClass(colorButtons));
 }
 
+// Remove Active Class on the Color Buttons
 function removeActiveClass(buttons) {
   buttons.forEach((button) => button.classList.remove("active"));
 }
 
-// Helper Function
+// Create Grid Cells/Items
 function createGridCells(number) {
   const gridCells = document.createElement("div");
   gridContainer.style.gridTemplateColumns = `repeat(${number}, auto)`;
@@ -44,7 +43,7 @@ function createGridCells(number) {
   gridContainer.appendChild(gridCells);
 }
 
-// Helper Function
+// Random Color Function
 function randomColor() {
   const red = Math.floor(Math.random() * 255);
   const green = Math.floor(Math.random() * 255);
@@ -52,6 +51,8 @@ function randomColor() {
   const color = `rgb(${red},${green},${blue})`;
   return color;
 }
+
+// Choose color based on what color button is clicked
 function chooseColor() {
   colorButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -70,6 +71,7 @@ function chooseColor() {
   });
 }
 
+// Generate color based on what color button is clicked
 function generateColor(color) {
   const gridCells = document.querySelectorAll(".grid > div");
   gridCells.forEach((item) => {
@@ -85,6 +87,7 @@ function generateColor(color) {
   });
 }
 
+// Clear the Grid
 function clear() {
   const gridCells = document.querySelectorAll(".grid > div");
   for (let i = 0; i < gridCells.length; i++) {
@@ -104,9 +107,9 @@ function toggleBorder() {
 }
 
 createDefaultGrid(16);
-chooseColor();
 // Initialize background color of black on the grid items/cells.
 generateColor("black");
+chooseColor();
 
 gridRangeSize.addEventListener("input", getGridTextValue);
 createNewGrid.addEventListener("click", createGridSize);
