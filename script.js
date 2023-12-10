@@ -11,6 +11,7 @@ const colorButtons = Array.from(
 const clearButton = document.querySelector(".clear");
 const toggleButton = document.querySelector(".toggle-border");
 
+// Text value of the Grid Size Range Value Input
 gridTextValue.textContent = `${gridRangeSize.value} x ${gridRangeSize.value}`;
 
 // Default Grid Size of 16 x 16
@@ -95,10 +96,12 @@ function clear() {
   }
 }
 
+// Get the updated text value of the Grid Size Range Value Input
 function getGridTextValue() {
   gridTextValue.textContent = `${gridRangeSize.value} x ${gridRangeSize.value}`;
 }
 
+// Toggle Borders on the Grid Items/Cells
 function toggleBorder() {
   const gridCells = document.querySelectorAll(".grid > div");
   gridCells.forEach((item) => {
@@ -106,8 +109,9 @@ function toggleBorder() {
   });
 }
 
+// Initialize Grid Size of 16 x 16
 createDefaultGrid(16);
-// Initialize background color of black on the grid items/cells.
+// Initialize background color of black on the grid items/cells
 generateColor("black");
 chooseColor();
 
