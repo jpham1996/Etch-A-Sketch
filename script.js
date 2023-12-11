@@ -92,7 +92,7 @@ function generateColor(color) {
 function clear() {
   const gridCells = document.querySelectorAll(".grid > div");
   for (let i = 0; i < gridCells.length; i++) {
-    gridCells[i].style.backgroundColor = "transparent";
+    gridCells[i].style.backgroundColor = "white";
   }
 }
 
